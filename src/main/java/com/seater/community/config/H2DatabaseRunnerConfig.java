@@ -16,7 +16,7 @@ public class H2DatabaseRunnerConfig {
 
     private static final String HOST_NAME = "localhost:8080";
     private static final String LOG_FORMAT = """
-                
+
             :: Loading Database With InMemory Database ::
                 Database Name: {}
                 Connect Database with this url: {}
@@ -25,13 +25,12 @@ public class H2DatabaseRunnerConfig {
 
     @Bean
     @Profile("default")
-    ApplicationRunner applicationRunner(final DataSource dataSource, final H2ConsoleProperties h2ConsoleProperties) {
+    ApplicationRunner applicationRunner(final DataSource dataSource,
+            final H2ConsoleProperties h2ConsoleProperties) {
         return args -> {
             DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
 
-            log.info(LOG_FORMAT,
-                    metaData.getDatabaseProductName(),
-                    metaData.getURL(),
+            log.info(LOG_FORMAT, metaData.getDatabaseProductName(), metaData.getURL(),
                     HOST_NAME + h2ConsoleProperties.getPath());
         };
     }
